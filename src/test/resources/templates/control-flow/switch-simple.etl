@@ -1,0 +1,6 @@
+{% switch status }
+{% case 1 }Pending
+{% case 2 }Processing
+{% case 3 }Completed
+{% default }Unknown
+{/% switch }

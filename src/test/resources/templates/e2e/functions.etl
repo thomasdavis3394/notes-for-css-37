@@ -1,0 +1,41 @@
+E2E functions
+{assert(length('hello') == 5)}
+{assert(length([1, 2, 3]) == 3)}
+{assert(length({a: 1, b: 2}) == 2)}
+{assert(length('你好') == 2)}
+{assert(length('') == 0)}
+{assert(length('ab') + length('cde') == 5)}
+length OK
+{assert(count(null) == 0)}
+{assert(count('x') == 1)}
+{assert(count(42) == 1)}
+{assert(count([1, 2]) == 2)}
+{assert(count({a: 1}) == 1)}
+{assert(count([[1, 2], [3]]) == 2)}
+count OK
+{assert(match('abc123', '[a-z]+[0-9]+'))}
+{assert(match('ABC', /^[a-z]+$/i))}
+{assert(match('abc', /^[a-z]+$/))}
+{assert(!match('abc', '[0-9]+'))}
+{assert(!match('abc123', '[a-z]+'))}
+match OK
+{assert(search('abc123', '[0-9]+'))}
+{assert(search('abc123', /[0-9]+/))}
+{assert(!search('abc', '[0-9]+'))}
+{assert(search('a.c', '\\.'))}
+search OK
+{assert(value([42]) == 42)}
+{assert(value([]) == null)}
+{assert(value([1, 2]) == null)}
+{assert(value('scalar') == 'scalar')}
+{assert(value(7) == 7)}
+value OK
+{assert(double(21) == 42.0)}
+{assert(concat('a', 'b') == 'ab')}
+{assert(concat('x', 1) == 'x1')}
+custom-function OK
+{% let length = (x) -> 'shadowed' %}
+{assert(length('hello') == 'shadowed')}
+{assert(length([1, 2]) == 'shadowed')}
+shadowing OK
+FUNCTIONS ALL PASS

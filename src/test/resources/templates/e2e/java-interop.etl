@@ -1,0 +1,39 @@
+E2E java-interop
+{% import java.util.ArrayList %}
+{% import java.util.HashMap %}
+{% import java.lang.Math as M %}
+{% let list = ArrayList() %}
+{% list.add('x') %}
+{assert(length(list) == 1)}
+{assert(list.get(0) == 'x')}
+{assert(!list.isEmpty())}
+{% let big = ArrayList(10) %}
+{assert(big.size() == 0)}
+construct OK
+{assert(M.sqrt(16) == 4.0)}
+{assert(M.PI > 3.14)}
+{assert(M.abs(-1) == 1)}
+{assert(M.max(2, 3) == 3)}
+static-alias OK
+{% let map = HashMap {name: 'Peter', age: 18} %}
+{assert(map.get('name') == 'Peter')}
+{assert(map.get('age') == 18)}
+{assert(map.size() == 2)}
+{assert(map.containsKey('age'))}
+map-construct OK
+{% let p = TestPerson {name: 'Peter', age: 25} %}
+{assert(p.getName() == 'Peter')}
+{assert(p.getAge() == 25)}
+{% p.age++ %}
+{assert(p.getAge() == 26)}
+{assert(TestPerson {name: 'ab'}.getName().toUpperCase() == 'AB')}
+bean-construct OK
+{% let p2 = TestPerson('John') {age: 30} %}
+{assert(p2.getName() == 'John')}
+{assert(p2.getAge() == 30)}
+bean-ctor-args OK
+{% let p3 = Person {name: 'Alias', age: 1} %}
+{assert(p3.getName() == 'Alias')}
+bean-alias OK
+person: {p.getName()}({p.getAge()})
+JAVA-INTEROP ALL PASS

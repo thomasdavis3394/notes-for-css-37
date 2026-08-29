@@ -1,0 +1,203 @@
+========================================
+EasyTL 简化测试文件 - token_test_simple.etl
+本文件包含所有模板语法的示例
+========================================
+
+--- 1. 纯文本支持 ---
+Hello World!
+这是一段普通文本。
+
+--- 2. 表达式嵌入 ---
+2.1 单花括号: Hello {user.name}!
+2.2 双花括号: Hello {{user.name}}!
+
+--- 3. 表达式语法 ---
+
+3.1 变量访问:
+{user.name}
+{user.age}
+{company.department.name}
+
+3.2 方法调用:
+{user.getName()}
+{user.setName('张三')}
+{list.size()}
+{str.substring(0, 5)}
+
+3.3 字面量:
+
+3.3.1 整数字面量:
+普通整数: {25}
+负整数: {-42}
+长整数: {1234567890123L}
+负长整数: {-1000000000L}
+大整数: {123456789012345678901234567890}
+
+3.3.2 浮点数字面量:
+普通浮点数: {99.99}
+负浮点数: {-1.5}
+科学计数法: {1.23e10}
+科学计数法(负): {1.5e-8}
+大数: {99.999999999999}
+
+3.3.3 字符串字面量:
+单引号: {'Hello World'}
+双引号: {"Hello World"}
+转义单引号: {'It\'s a day'}
+转义双引号: {"He said \"Hi\""}
+换行符: {"第一行\n第二行"}
+制表符: {"列1\t列2"}
+
+3.3.4 字符串模板字面量:
+{`Hello {user.name}!`}
+{`总价：{price * quantity}元`}
+
+3.3.5 区间字面量:
+全闭区间: {0..10}
+全开区间: {0>..<10}
+前闭后开: {0..<10}
+前开后闭: {0>..10}
+
+3.3.6 列表字面量:
+整数列表: {[1, 2, 3, 4, 5]}
+字符串列表: {['red', 'green', 'blue']}
+混合列表: {[1, 'hello', 3.14, true, null]}
+嵌套列表: {[[1, 2], [3, 4]]}
+空列表: {[]}
+
+3.4 布尔值和空值:
+{true}
+{false}
+{null}
+
+3.5 数组/列表访问:
+{list[0]}
+{array[index]}
+{map['key']}
+
+3.6 算术运算:
+{a + b}
+{a - b}
+{a * b}
+{a / b}
+{a % b}
+
+3.7 比较运算:
+{a > b}
+{a < b}
+{a >= b}
+{a <= b}
+{a == b}
+{a != b}
+
+3.8 逻辑运算:
+{a && b}
+{a || b}
+{!a}
+
+3.9 三元运算符:
+{age >= 18 ? '成年' : '未成年'}
+{score >= 60 ? '及格' : '不及格'}
+
+3.10 链式调用:
+{user.getName().toUpperCase()}
+{list.get(0).getAddress().getCity()}
+
+3.11 空安全操作符:
+{user?.name}
+{user?.address?.city}
+{list?.get(0)?.name}
+
+3.12 Elvis 表达式:
+{name ?: "匿名用户"}
+{user.email ?: "未设置邮箱"}
+
+3.13 正则表达式字面量:
+{/[a-zA-Z]/}
+{/\d+/}
+{/\w+/i}
+{/[\d]+/gi}
+
+3.14 正则匹配运算符:
+{name =~ /\w+/}
+{email =~ /^[\w.-]+@[\w.-]+\.\w+$/}
+
+3.15 正则不匹配运算符:
+{name !=~ /[\d]+/}
+{username !=~ /^admin$/i}
+
+3.16 in 表达式:
+集合包含: {a in numbers}
+区间包含: {num in 0..100}
+Map键包含: {key in userMap}
+字符串包含: {'admin' in username}
+
+3.17 !in 表达式:
+{a !in numbers}
+{age !in 0>..18}
+
+--- 4. 命令语句块 ---
+(命令语句块示例暂时跳过)
+
+--- 5. 条件语句块 ---
+
+5.1 基本 if 语句:
+{% if flag == 1 }文本1{/% if }
+
+5.2 if-else 语句:
+{% if flag == 1 }文本1{% else %}文本2{/% if }
+
+5.3 if-else if-else 语句:
+{% if flag == 1 }文本1{% else if flag == 2 %}文本2{% else %}文本3{/% if }
+
+--- 6. 循环语句块 ---
+
+6.1 基本 for 循环:
+{% for i in numbers }
+i = {i}
+{/% for }
+
+6.2 带索引的 for 循环:
+{% for i, user in userList }
+第{i}个用户：{user.name}
+{/% for }
+
+6.3 区间循环:
+{% for i in 1>..<10 }
+第 {i} 项
+{/% for }
+
+--- 7. Switch 语句块 ---
+
+{% switch status }
+{% case 1 %}待处理
+{% case 2 %}处理中
+{% case 3 %}已完成
+{% default %}未知状态
+{/% switch }
+
+--- 8. 嵌入式代码块 ---
+
+8.1 变量声明和赋值:
+{% let name = 'EasyTL' %}
+{% let version = 1.0 %}
+{% let enabled = true %}
+
+8.2 模板扩展:
+{% extends 'layout.etl' %}
+
+8.3 Java 类导入:
+{% import java.util.List %}
+{% import java.time.LocalDateTime %}
+
+8.4 多行代码块:
+{%
+    let a = 1
+    let b = 2
+    let c = a + b
+%}
+
+========================================
+测试文件结束
+========================================
+

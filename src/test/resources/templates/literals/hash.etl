@@ -1,0 +1,4 @@
+Hash: {{name: 'John', age: 30}}
+String keys: {{'key1': 'value1', 'key2': 'value2'}}
+Nested: {{{name: 'John', address: {city: 'Beijing'}}}}
+With variable: {user}

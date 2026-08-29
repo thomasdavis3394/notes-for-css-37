@@ -1,0 +1,4 @@
+{% let name = 'John' %}
+Hello, {name}!
+{% let age = 25 %}
+Age: {age}

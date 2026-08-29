@@ -1,0 +1,4 @@
+Single quote: {'Hello'}
+Double quote: {"World"}
+With variable: {name}
+Escaped: {"He said \"Hello\""}

@@ -1,0 +1,3 @@
+Property: {user.name}
+Nested: {user.address.city}
+Multiple: {user.name} lives in {user.address.city}

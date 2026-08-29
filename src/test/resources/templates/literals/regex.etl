@@ -1,0 +1,3 @@
+Regex: {/pattern/i}
+With flags: {/test/gm}
+Variable: {pattern}

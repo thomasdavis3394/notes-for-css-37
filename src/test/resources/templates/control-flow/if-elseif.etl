@@ -1,0 +1,7 @@
+{% if status == 1 }
+Pending
+{% else if status == 2 }
+Processing
+{% else }
+Completed
+{/% if }

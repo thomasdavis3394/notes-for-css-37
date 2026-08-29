@@ -1,0 +1,15 @@
+{% let x = 1 %}
+{% if x == 1 }
+if-body
+{/% if }
+{% if x == 2 }
+unreachable
+{/% if }
+{% switch x }
+{% case 1 }
+case-one
+{% default }
+case-default
+{/% switch }
+end
+{assert(x == 1)}

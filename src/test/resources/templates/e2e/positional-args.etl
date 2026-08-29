@@ -1,0 +1,21 @@
+E2E positional-args
+simple: {0} / {1} / {2}
+vars: {$0} / {$1} / {$2}
+default: {$}
+{assert($0 == 'A')}
+{assert($1 == 'B')}
+{assert($2 == 'C')}
+{assert($ == 'A')}
+{assert($0 + $1 + $2 == 'ABC')}
+{assert($1 + '-' + $2 == 'B-C')}
+basic OK
+{% let first = (a, b) -> $ %}
+{assert(first('x', 'y') == 'x')}
+lambda-arg: {first('x', 'y')}
+lambda-arg OK
+{% let $ = 'own' %}
+override: {$}
+{assert($ == 'own')}
+{assert($0 == 'A')}
+override OK
+POSITIONAL-ARGS ALL PASS

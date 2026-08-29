@@ -1,0 +1,4 @@
+Closed range: {1..5}
+Half-open: {1..<5}
+Open: {>1..<5}
+With variable: {range}

@@ -1,0 +1,24 @@
+E2E assert-forms
+{assert(1 + 1 == 2)}
+{assert('abc' in ['a', 'b', 'abc'])}
+cond-form OK
+{assert(true)}
+{assert(1)}
+{assert('non-empty')}
+{assert([0])}
+{assert(5 >= 5)}
+{assert('a' in ['a'])}
+{assert('abc' =~ /^a/)}
+truthy OK
+{assert(length([1, 2, 3]) == 3, 'list must have 3 elements')}
+{assert(10 > 5, 'ten is greater than five')}
+{assert(1 == 1, 'computed: ' + (1 + 1))}
+message-form OK
+{assert(1 > 2, e -> log.add(e.getMessage()))}
+{assert(2 > 1, e -> log.add('should-not-run'))}
+{assert(1 == 2, e -> log.add(e != null))}
+lambda-form OK
+{% for i in 1..1 }{% let assert = (x) -> 'shadowed' %}{% log.add(assert(0)) %}{/% for }
+{assert(log[-1] == 'shadowed')}
+shadow OK
+ASSERT-FORMS ALL PASS

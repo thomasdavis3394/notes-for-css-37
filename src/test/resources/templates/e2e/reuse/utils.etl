@@ -1,0 +1,4 @@
+{% export let add = (a, b) -> a + b %}
+{% export let multiply = (a, b) -> a * b %}
+{% let config = {name: 'e2e-utils', version: '2.0'} %}
+{% export config %}

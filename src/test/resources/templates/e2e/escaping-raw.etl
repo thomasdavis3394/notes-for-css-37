@@ -1,0 +1,19 @@
+E2E escaping-raw
+literal-braces: \{name\} and \{%
+single-open: \{
+single-close: \}
+{assert(1 == 1)}
+escape OK
+block: @raw{{name} and ${x} and {% if }}
+empty-block: @raw{}!
+special: @raw{100% {complete} $done}
+{assert(2 == 2)}
+raw-block OK
+nested: @raw{a{b{}c}d}
+raw-nested OK
+multi: @raw{line1 {x}
+line2 {y}}
+{assert(3 == 3)}
+raw-multiline OK
+before-raw-colon OK
+@raw: tail {name} ${expr} {% if x } all raw

@@ -1,0 +1,77 @@
+E2E literals
+{% let s1 = 'single' %}
+{% let s2 = "double" %}
+{% let s3 = "He said \"Hi\"\nNew\tTab\\End" %}
+{assert(s1 == 'single')}
+{assert(s2 == "double")}
+{assert(s3 == 'He said "Hi"\nNew\tTab\\End')}
+string-render: {'hello'}
+strings OK
+{assert('It\'s' == "It's")}
+{assert(length('a\nb') == 3)}
+{assert(length('a\tb') == 3)}
+{assert('back\\slash' == 'back' + '\\' + 'slash')}
+{assert('' == '' && length('') == 0)}
+escapes OK
+{% let name = 'World' %}
+{% let tpl = `Hello {name}, {1 + 1} times` %}
+{assert(tpl == 'Hello World, 2 times')}
+{assert(`upper: {name.toUpperCase()}` == 'upper: WORLD')}
+{assert(`sum={1 + 2 * 3}` == 'sum=7')}
+{% let multi = `l1
+l2` %}
+{assert(match(multi, 'l1\\s+l2'))}
+template-string OK
+{assert(42 == 42)}
+{assert(-10 == 0 - 10)}
+{assert(3.14 > 3.13)}
+{assert(1.23e-4 == 0.000123)}
+{assert(1.5e3 == 1500.0)}
+{assert(1234567890123 == 1234567890123)}
+{assert(123L == 123L)}
+{assert(9223372036854775808 == 9223372036854775808)}
+numbers OK
+{assert(true && !false)}
+{assert(true != false)}
+{assert(null == null)}
+{% let nothing = null %}
+{assert(nothing == null)}
+boolean-null OK
+{% let list = [1, 'two', true, [3, 4]] %}
+{assert(length(list) == 4)}
+{assert(list[0] == 1 && list[1] == 'two' && list[2] == true)}
+{assert(list[3][1] == 4)}
+{assert(list[-1][0] == 3)}
+{assert([] == [])}
+{assert([[]] == [[]])}
+{assert([[1, [2, [3]]]][0][1][1][0] == 3)}
+{assert([{a: 1}][0].a == 1)}
+list-render: {[1, 2, 3]}
+list OK
+{% let map = {name: 'John', "age": 30, 0: 'zero', nested: {city: 'Beijing'}} %}
+{assert(map.name == 'John')}
+{assert(map['age'] == 30)}
+{assert(map[0] == 'zero')}
+{assert(map.nested.city == 'Beijing')}
+{assert(count(map) == 4)}
+{assert({} == {})}
+{assert({'k': 'v'}['k'] == 'v')}
+{assert({a: {b: {c: 7}}}.a.b.c == 7)}
+map OK
+{assert(3 in 1..5)}
+{assert(1 in 1..5 && 5 in 1..5)}
+{assert(5 !in 1..<5)}
+{assert(2 in 1>..5)}
+{assert(1 !in 1>..5)}
+{assert(2 in 1>..<5)}
+{assert(5 !in 1>..<5)}
+{assert(-2 in -3..-1)}
+{assert(-3 in -3..-1 && -1 in -3..-1)}
+range OK
+{assert('abc' =~ /^[a-z]+$/)}
+{assert('ABC' =~ /^[a-z]+$/i)}
+{assert('a1b2' =~ /[a-z][0-9]/g)}
+{assert('123' !=~ /^[a-z]+$/)}
+{assert(match('a\nb', /a[\s\S]b/m))}
+regex OK
+LITERALS ALL PASS

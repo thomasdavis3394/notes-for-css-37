@@ -1,0 +1,3 @@
+Method: {getName()}
+With args: {format('Hello', 'World')}
+Chain: {list.size()}

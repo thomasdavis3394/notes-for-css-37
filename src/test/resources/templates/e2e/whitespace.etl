@@ -1,0 +1,8 @@
+商品列表:
+{% for item in ['a', 'b'] }
+- {item}
+{/% for }
+done
+{% let x = 1 %}
+{assert(x == 1)}
+after-let

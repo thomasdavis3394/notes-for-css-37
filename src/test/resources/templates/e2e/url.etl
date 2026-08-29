@@ -1,0 +1,57 @@
+E2E url
+{% let host = 'example.com' %}
+{% let v = 'x y' %}
+{% let user = 'admin' %}
+{% let port = 8080 %}
+{% let path = 'api/v1' %}
+{% let k = 'q' %}
+{% let anchor = 'top' %}
+full: {url(https://user:pass@host:8080/path?q=1#ref)}
+relative-path: {url(/path/only)}
+query-only: {url(?a=1&b=2)}
+ref-only: {url(#section)}
+ws: {url(ws://host/path)}
+file: {url(file:///Users/name/file.txt)}
+empty: [{url()}]
+{assert(url(https://user:pass@host:8080/path?q=1#ref).toString() == 'https://user:pass@host:8080/path?q=1#ref')}
+{assert(url(/path/only).path == '/path/only')}
+{assert(url(?a=1&b=2).getQuery('a') == '1')}
+{assert(url(?a=1&b=2).getQuery('b') == '2')}
+{assert(url(#section).ref == 'section')}
+{assert(url(ws://host/path).scheme == 'ws')}
+{assert(url(file:///Users/name/file.txt).scheme == 'file')}
+{assert(url().toString() == '')}
+formats OK
+{assert(url(http://example.com:8080/p?a=1).scheme == 'http')}
+{assert(url(http://user:pass@example.com/p).userInfo == 'user:pass')}
+{assert(url(http://example.com:8080/p?a=1).host == 'example.com')}
+{assert(url(http://example.com:8080/p?a=1).port == 8080)}
+{assert(url(http://example.com:8080/p?a=1).path == '/p')}
+{assert(url(http://example.com/p?a=1&b=2).query == 'a=1&b=2')}
+{assert(url(http://example.com/p#frag).ref == 'frag')}
+{assert(url(http://example.com/p?a=1&a=2).getQueryValues('a') == ['1', '2'])}
+components OK
+embed-userinfo: {url(http://{user}@example.com/p)}
+embed-host: {url(http://{host}/path)}
+embed-port: {url(http://example.com:{port}/p)}
+embed-path: {url(http://example.com/{path}/x)}
+embed-query-key: {url(http://h/p?{k}=1)}
+embed-query-value: {url(http://example.com/path?a={v})}
+embed-ref: {url(http://example.com/p#{anchor})}
+{assert(url(http://{user}@example.com/p).userInfo == 'admin')}
+{assert(url(http://{host}/p).host == 'example.com')}
+{assert(url(http://example.com:{port}/p).port == 8080)}
+{assert(url(http://example.com/{path}/x).path == '/api/v1/x')}
+{assert(url(http://h/p?{k}=1).getQuery('q') == '1')}
+{assert(url(http://example.com/path?a={v}).getQuery('a') == 'x y')}
+{assert(url(http://example.com/p#{anchor}).ref == 'top')}
+embed-positions OK
+embed-multi: {url(http://{user}@{host}:{port}/{path}?{k}={v}#{anchor})}
+{assert(url(http://{user}@{host}:{port}/{path}?{k}={v}#{anchor}).toString() == 'http://admin@example.com:8080/api/v1?q=x+y#top')}
+embed-multi OK
+{assert(url(http://{missing}/p).toString() == 'http:///p')}
+missing OK
+{assert(url(http://example.com/path?a={v}).toString() == 'http://example.com/path?a=x+y')}
+{assert(url(http://h/p?a=\{x\}).getQuery('a') == '{x}')}
+encoding OK
+URL ALL PASS

@@ -1,0 +1,41 @@
+E2E expressions
+wrappers: {user.name} | {{user.name}} | ${user.name}
+{assert(user.name == 'John')}
+{assert(user.age == 30)}
+mixed: {{user.age + 1}}/${items[0]}
+wrappers OK
+{assert(user.getName() == 'John')}
+{assert(user.getName().toUpperCase() == 'JOHN')}
+{assert(user.getName().toLowerCase() == 'john')}
+{assert(user.getName().substring(0, 2) == 'Jo')}
+{assert(items.size() == 3)}
+{assert(items.get(2) == 'c')}
+{assert(data.containsKey('name'))}
+{assert('name' in data.keySet())}
+{assert(user.getName().length() == 4)}
+method-call OK
+{assert(items[0] == 'a' && items[1] == 'b')}
+{assert(items[-1] == 'c')}
+{assert(items[1 + 1] == 'c')}
+{assert(items[length(items) - 1] == 'c')}
+{assert(data['name'] == 'John')}
+index-access OK
+{assert(nullUser?.name == null)}
+{assert(user?.name == 'John')}
+{assert((nullUser?.name ?? 'anonymous') == 'anonymous')}
+safe-nav OK
+{assert(data[key] == 'value1')}
+{assert(users[0]['name'] == 'John')}
+dynamic-key OK
+{% let cfg = {db: {host: 'db.local', port: 5432}} %}
+{assert(cfg.db.host == 'db.local')}
+{assert(cfg.db.port == 5432)}
+{assert(cfg['db']['port'] == 5432)}
+nested-chain OK
+{assert((user.age + 1) * 2 == 62)}
+{assert((items[0] + items[1]).length() == 2)}
+parens OK
+bool: {true}
+nothing: [{null}]
+literal-render OK
+EXPRESSIONS ALL PASS

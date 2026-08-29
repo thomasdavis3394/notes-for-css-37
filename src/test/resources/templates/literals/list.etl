@@ -1,0 +1,4 @@
+List: {[1, 2, 3]}
+Mixed: {['a', 1, true]}
+Nested: {[[1, 2], [3, 4]]}
+With variable: {items}

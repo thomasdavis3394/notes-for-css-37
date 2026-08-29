@@ -1,0 +1,59 @@
+E2E jsonpath
+{% let store = {book: [
+  {category: 'reference', author: 'Nigel Rees', title: 'Sayings of the Century', price: 8.95, sizes: ['S']},
+  {category: 'fiction', author: 'Evelyn Waugh', title: 'Sword of Honour', price: 12.99, sizes: ['S', 'M']},
+  {category: 'fiction', author: 'Herman Melville', title: 'Moby Dick', price: 8.99, isbn: '0-553-21311-3', sizes: ['L']},
+  {category: 'fiction', author: 'J. R. R. Tolkien', title: 'The Lord of the Rings', price: 22.99, isbn: '0-395-19395-8'}
+], bicycle: {color: 'red', price: 19.95}} %}
+{assert(length(store.book) == 4)}
+data OK
+{assert(store.book[0].title == 'Sayings of the Century')}
+{assert(store.book[-1].title == 'The Lord of the Rings')}
+{assert(store.book[-4].title == 'Sayings of the Century')}
+index OK
+{assert(store.book[*].author == ['Nigel Rees', 'Evelyn Waugh', 'Herman Melville', 'J. R. R. Tolkien'])}
+{assert(store.book.*.title == ['Sayings of the Century', 'Sword of Honour', 'Moby Dick', 'The Lord of the Rings'])}
+{assert(count(store.*) == 2)}
+{assert(count(store.bicycle[*]) == 2)}
+{assert('red' in store.bicycle[*])}
+{assert(19.95 in store.bicycle[*])}
+wildcard OK
+{assert(length(store.book[1:4]) == 3)}
+{assert(store.book[:2][1].title == 'Sword of Honour')}
+{assert(store.book[-2:][0].title == 'Moby Dick')}
+{assert(length(store.book[0:4:2]) == 2)}
+{assert(store.book[::-1][0].title == 'The Lord of the Rings')}
+{assert(store.book[3:0:-1].title == ['The Lord of the Rings', 'Moby Dick', 'Sword of Honour'])}
+{assert(count(store.book[::0]) == 0)}
+{assert(length(store.book[0:99]) == 4)}
+slice OK
+{assert(store.book[?(@.price < 10)].title == ['Sayings of the Century', 'Moby Dick'])}
+{assert(store.book[?(@.isbn)].title == ['Moby Dick', 'The Lord of the Rings'])}
+{assert(store.book[?(!@.isbn)].title == ['Sayings of the Century', 'Sword of Honour'])}
+{assert(store.book[?(@.sizes anyof ['M'])].title == ['Sword of Honour'])}
+{assert(store.book[?(@['price'] < 10)][0].title == 'Sayings of the Century')}
+{assert(count(store.book[?(@.category == 'fiction')]) == 3)}
+{assert(store.bicycle[?(@ > 10)] == [19.95])}
+{assert(store.book[?(match(@.author, '.*Rees.*'))].title == ['Sayings of the Century'])}
+{assert(store.book[?(search(@.title, 'Ring'))].title == ['The Lord of the Rings'])}
+{assert(count(store.book[?(@.price > 100)]) == 0)}
+filter OK
+{assert(store.book..price == [8.95, 12.99, 8.99, 22.99])}
+{assert(count(store..['price']) == 5)}
+{assert(19.95 in store..['price'])}
+{assert(store..[?(@.isbn)].title == ['Moby Dick', 'The Lord of the Rings'])}
+{assert(count(store..[0]) == 4)}
+{assert(count(store..*) > 10)}
+recursive OK
+{assert(store.book[0, 2].title == ['Sayings of the Century', 'Moby Dick'])}
+{assert(store.bicycle['color', 'price'] == ['red', 19.95])}
+{assert(length(store.book[0, 99]) == 1)}
+{assert(length(store.book[0:2, 3]) == 3)}
+{assert(store.book[-1, 0][0].title == 'The Lord of the Rings')}
+union OK
+{assert(length(store.book[?(length(@.title) > 15)]) == 2)}
+{assert(count(store.book[?(@.price < 10)]) == 2)}
+{assert(value(store.book[?(@.isbn == '0-553-21311-3')]).title == 'Moby Dick')}
+functions-in-path OK
+titles: {store.book[*].title}
+JSONPATH ALL PASS

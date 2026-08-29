@@ -1,0 +1,10 @@
+E2E reuse
+{% import 'utils.etl' as utils %}
+{assert(utils.add(1, 2) == 3)}
+{assert(utils.multiply(3, 4) == 12)}
+{assert(utils.config.name == 'e2e-utils')}
+{assert(utils.config.version == '2.0')}
+import OK
+{% extends 'layout.etl' %}
+extends OK
+REUSE ALL PASS

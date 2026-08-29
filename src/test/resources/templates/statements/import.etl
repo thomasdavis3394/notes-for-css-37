@@ -1,0 +1,2 @@
+{% import 'common.etl' as common %}
+Using imported: {common.header()}

@@ -1,0 +1,3 @@
+{% for i, item in items }
+{i}: {item}
+{/% for }

@@ -1,0 +1,149 @@
+E2E operators
+{% let a = 10 %}
+{% let b = 3 %}
+{assert(a + b == 13)}
+{assert(a - b == 7)}
+{assert(a * b == 30)}
+{assert(a / b == 3)}
+{assert(a % b == 1)}
+{assert('foo' + 'bar' == 'foobar')}
+{assert('n=' + 42 == 'n=42')}
+{assert(1 + 2 * 3 == 7)}
+{assert((1 + 2) * 3 == 9)}
+{assert(7 / 2 == 3)}
+{assert(7.0 / 2 == 3.5)}
+{assert(1 + 2.5 == 3.5)}
+{assert(0.1 + 0.2 != 0.3)}
+{assert(-7 % 3 == -1)}
+{assert(2 + 3 * 4 - 1 == 13)}
+{assert((2 + 3) * (4 - 1) == 15)}
+{assert(10 % 4 * 2 == 4)}
+arithmetic OK
+{assert(-a == -10)}
+{assert(+a == 10)}
+{assert(-(-3) == 3)}
+{assert(-2.5 == 0 - 2.5)}
+{assert(!(a < b))}
+unary OK
+{assert(a > b && b < a && a >= 10 && b <= 3)}
+{assert(a != b && !(a == b))}
+{assert(1 < 1.5 && 2.5 > 2)}
+{assert('abc' < 'abd')}
+relational OK
+{assert(a == 10 && a != 11)}
+{assert('abc' == 'abc')}
+{assert(1 != 1L)}
+{assert(1 != 1.0)}
+{assert(null == null && null != 1)}
+equality OK
+{assert(true && true)}
+{assert(false || true)}
+{assert(!false)}
+{assert((false && missing.boom) == false)}
+{assert((true || missing.boom) == true)}
+{assert((true && false || true) == true)}
+logical OK
+{% let na = null %}
+{% let nb = null %}
+{assert((na ?? 'dflt') == 'dflt')}
+{assert((a ?? 'dflt') == 10)}
+{assert((na ?? nb ?? 'fb') == 'fb')}
+{assert((0 ?? 'x') == 0)}
+{assert(('' ?? 'x') == '')}
+{assert((false ?? 'x') == false)}
+elvis OK
+{assert((a > b ? 'gt' : 'le') == 'gt')}
+{assert((a == 10 ? 'ten' : a == 11 ? 'eleven' : 'other') == 'ten')}
+{assert((a < b ? a + b : a - b) == 7)}
+{assert((false ? null : 'd') == 'd')}
+{assert((a > 0 ? 'pos' : a < 0 ? 'neg' : 'zero') == 'pos')}
+ternary OK
+{assert('Hello' =~ /^[A-Z].*/)}
+{assert('hello' !=~ /^[A-Z].*/)}
+{assert('abc' =~ 'a.c')}
+{assert('abc' !=~ 'a..d')}
+regex-ops OK
+{assert('a' in ['a', 'b', 'c'])}
+{assert('d' !in ['a', 'b', 'c'])}
+{assert('name' in {name: 'x'})}
+{assert('email' !in {name: 'x'})}
+{assert('admin' in 'admin-user')}
+{assert('@' !in 'nope')}
+{assert(5 in 1..10)}
+{assert(5 !in 10..20)}
+{assert(2.5 in 1..3)}
+{assert(0.5 in 0..1)}
+membership OK
+{assert(['S', 'M'] subsetof ['S', 'M', 'L'])}
+{assert([] subsetof ['S'])}
+{assert(['M'] subsetof ['M'])}
+{assert(!(['S', 'X'] subsetof ['S', 'M']))}
+{assert(['M'] anyof ['S', 'M', 'L'])}
+{assert(!(['X'] anyof ['M', 'L']))}
+{assert([] anyof ['M'] == false)}
+{assert(['X'] noneof ['M', 'L'])}
+{assert(!(['M'] noneof ['M', 'L']))}
+set-ops OK
+{% let n = 1 %}
+{% n += 5 %}
+{assert(n == 6)}
+{% n -= 1 %}
+{assert(n == 5)}
+{% n *= 4 %}
+{assert(n == 20)}
+{% n /= 3 %}
+{assert(n == 6)}
+{% n %= 4 %}
+{assert(n == 2)}
+{% n <<= 4 %}
+{assert(n == 32)}
+{% n >>= 2 %}
+{assert(n == 8)}
+{% n >>>= 1 %}
+{assert(n == 4)}
+{% n |= 3 %}
+{assert(n == 7)}
+{% n &= 5 %}
+{assert(n == 5)}
+{% n ^= 1 %}
+{assert(n == 4)}
+{% let sb = 'ab' %}
+{% sb += 'cd' %}
+{assert(sb == 'abcd')}
+{% let arr2 = [10, 20] %}
+{% arr2[1] += 5 %}
+{assert(arr2[1] == 25)}
+{% let m2 = {k: 1} %}
+{% m2['k'] *= 10 %}
+{assert(m2['k'] == 10)}
+compound-assign OK
+{% let i = 5 %}
+{assert(i++ == 5)}
+{assert(i == 6)}
+{assert(++i == 7)}
+{assert(i-- == 7)}
+{assert(--i == 5)}
+{% let j = 1 %}
+{assert(++j * 2 == 4)}
+{% let arr = [1, 2] %}
+{% arr[0]++ %}
+{assert(arr[0] == 2)}
+{% let obj = {count: 10} %}
+{% obj['count']-- %}
+{assert(obj['count'] == 9)}
+inc-dec OK
+{assert((int) 3.14 == 3)}
+{assert((int) '123' == 123)}
+{assert((long) '100' == 100L)}
+{assert((long) 7 == 7L)}
+{assert((String) 123 == '123')}
+{assert((double) '2.5' == 2.5)}
+{assert((float) '2.5' > 2)}
+{assert((boolean) 'true' == true)}
+{assert((int)(double) '3.99' == 3)}
+{assert((BigDecimal) '1.5' > (BigDecimal) '1.4')}
+{assert((int) null == null)}
+{assert((int) 3.14 * 2 == 6)}
+{assert((int) -3.9 == -3)}
+cast OK
+OPERATORS ALL PASS
