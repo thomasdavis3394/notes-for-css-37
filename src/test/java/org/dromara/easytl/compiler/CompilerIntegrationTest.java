@@ -1677,3 +1677,5 @@ public class CompilerIntegrationTest {
         public int getScore() { return score; }
     }
 }
+
+// b7d3bf
